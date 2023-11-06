@@ -31,9 +31,9 @@ export default defineConfig({
         ],
       },
       registerType: 'autoUpdate',
-      devOptions: {
+      /* devOptions: {
         enabled: true,
-      },
+      }, */
     }),
   ],
   resolve: {

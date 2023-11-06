@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import Button from 'primevue/button'
 
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
@@ -62,6 +63,13 @@ function promptInstall() {
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <button v-if="installable" @click="promptInstall">Install App</button>
+        <Button label="Primary" />
+        <Button label="Secondary" severity="secondary" />
+        <Button label="Success" severity="success" />
+        <Button label="Info" severity="info" />
+        <Button label="Warning" severity="warning" />
+        <Button label="Help" severity="help" />
+        <Button label="Danger" severity="danger" />
       </nav>
     </div>
   </header>
