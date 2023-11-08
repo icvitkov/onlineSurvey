@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import FilmSurvey from '@/components/FilmSurvey.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <Suspense>
+      <FilmSurvey />
+      <template #fallback> Loading... </template>
+    </Suspense>
   </main>
 </template>
+
+<style lang="scss" scoped></style>
