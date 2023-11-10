@@ -1,28 +1,19 @@
-// types/survey.ts
-export type SurveyQuestionAttributes = {
-    min?: number;
-    max?: number;
-  };
-  
-  export type SurveyQuestion = {
-    questionId: string;
-    questionType: 'text' | 'rating';
-    label: string;
-    required: boolean;
-    attributes: SurveyQuestionAttributes | null;
-  };
-  
-  export type SurveyAttributes = {
-    title: string;
-    description: string;
-    questions: SurveyQuestion[];
-  };
-  
-  export type SurveyData = {
-    data: {
-      type: 'surveys';
-      id: string;
-      attributes: SurveyAttributes;
-    };
-  };
-  
+export interface SurveyData {
+  id:          string;
+  title:       string;
+  description: string;
+  questions:   Question[];
+}
+
+export interface Question {
+  questionId:   string;
+  questionType: string;
+  label:        string;
+  required:     boolean;
+  attributes:   Attributes | null;
+}
+
+export interface Attributes {
+  min: number;
+  max: number;
+}

@@ -29,10 +29,10 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-  <h1>{{ surveyData.data.attributes.title }}</h1>
-  <div v-html="surveyData.data.attributes.description"></div>
+  <h1>{{ surveyData.title }}</h1>
+  <div v-html="surveyData.description"></div>
   <form @submit="onSubmit">
-    <div v-for="question in surveyData.data.attributes.questions" :key="question.questionId">
+    <div v-for="question in surveyData.questions" :key="question.questionId">
       <div v-if="question.questionType === 'text'">
         <FieldText
           :id="question.questionId"
