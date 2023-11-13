@@ -1,24 +1,22 @@
 <script setup lang="ts">
 import SurveyForm from '@/components/SurveyForm.vue'
-import type { SurveyData } from '@/types'
 import { onMounted, ref } from 'vue'
-import { useFetch } from '@vueuse/core'
+import { useSurveyStore } from '@/store/surveyStore'
 
+const surveyStore = useSurveyStore()
 const surveyData = ref()
 
-// Use useFetch to fetch data from the JSON server
-const { data, error, loading } = await useFetch('http://localhost:3000/survey').json()
-
-// Load the data into the surveyData ref when it's available
-onMounted(() => {
-  if (data.value) {
-    try {
-      surveyData.value = data.value
-      console.log(typeof data.value)
-    } catch (e) {
-      console.error('Error parsing JSON:', e)
-    }
+const fetchSurveyData = async () => {
+  const { data, error, isFetching } = await surveyStore.fetchSurveyData()
+  if (error.value) {
+    console.log('error', error)
+    return
   }
+  surveyData.value = data.value
+  console.log(surveyData.value)
+}
+onMounted(() => {
+  fetchSurveyData()
 })
 </script>
 
