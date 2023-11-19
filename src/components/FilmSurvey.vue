@@ -14,14 +14,12 @@ const fetchSurveyData = async () => {
     return
   }
   surveyData.value = data.value
-  console.log(surveyData.value)
 }
 onMounted(() => {
   fetchSurveyData()
 })
 
 const submitSurvey = async (form: { film: string; review: number }) => {
-  console.log('event', form)
   const payload: SurveyAnswer = {
     data: {
       type: 'surveyAnswers',
@@ -40,7 +38,6 @@ const submitSurvey = async (form: { film: string; review: number }) => {
     }
   }
   const { data, error } = await surveyStore.submitSurveyAnswers(surveyData.value.data.id, payload)
-  console.log('data', data, 'error', error)
 }
 </script>
 

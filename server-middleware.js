@@ -8,7 +8,6 @@ server.use(middlewares)
 
 // send error message when validating code on invest
 server.get('/survey', (req, res) => {
-  console.log('/invest_url, error 400')
   res.status(500).jsonp({
     errors: [
       {

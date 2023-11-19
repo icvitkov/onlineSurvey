@@ -42,8 +42,7 @@ const { defineComponentBinds, handleSubmit, resetForm, errors } = useForm({
 const film = defineComponentBinds('film')
 const review = defineComponentBinds('review')
 
-const onSubmit = handleSubmit((values) => {
-  console.log(values)
+const onSubmit = handleSubmit(() => {
   emit('submit', { film: film.value.modelValue, review: review.value.modelValue })
 })
 </script>
