@@ -12,6 +12,7 @@
     "format": "prettier --write src/",
     "preview": "vite preview",
     "server:start": "json-server --watch db.json",
+    "mock-server-error": "node ./server-middleware.js",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },

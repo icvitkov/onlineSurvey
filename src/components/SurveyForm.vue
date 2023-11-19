@@ -7,24 +7,44 @@ import * as yup from 'yup'
 import { ref } from 'vue'
 import type { SurveyData } from '@/types/survey'
 
-defineProps<{
+const props = defineProps<{
   surveyData: SurveyData
 }>()
 
-const schema = yup.object({
-  film: yup.string().required().label('Film name'),
-  review: yup.string().required().label('Review')
-})
+const emit = defineEmits<{
+  (e: 'submit', form: { film: string; review: number }): void
+}>()
 
-const { defineComponentBinds, handleSubmit, resetForm, errors, values } = useForm({
-  validationSchema: schema
+const createValidationSchema = () => {
+  let schemaFields: { [key: string]: any } = {}
+
+  props.surveyData.questions.forEach((question) => {
+    if (question.questionType === 'text') {
+      schemaFields.film = question.required
+        ? yup.string().required().label('Film name')
+        : yup.string().label('Film name')
+    } else if (question.questionType === 'rating') {
+      schemaFields.review = question.required
+        ? yup.string().required().label('Review')
+        : yup.string().label('Review')
+    }
+  })
+
+  return yup.object().shape(schemaFields)
+}
+
+const validationSchema = ref(createValidationSchema())
+
+const { defineComponentBinds, handleSubmit, resetForm, errors } = useForm({
+  validationSchema
 })
 
 const film = defineComponentBinds('film')
 const review = defineComponentBinds('review')
 
 const onSubmit = handleSubmit((values) => {
-  console.log('Submitted with', values)
+  console.log(values)
+  emit('submit', { film: film.value.modelValue, review: review.value.modelValue })
 })
 </script>
 
