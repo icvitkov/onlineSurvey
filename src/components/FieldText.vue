@@ -13,11 +13,36 @@ defineProps<{
 </script>
 
 <template>
-  <label :for="id">{{ label }}</label>
-  <InputText :id="id" v-bind="bindingValue" :class="{ 'p-invalid': error }" />
-  <small id="film-help" class="p-error">
-    {{ error }}
-  </small>
+  <div class="field">
+    <label :for="id" class="label">{{ label }}</label>
+    <InputText :id="id" v-bind="bindingValue" :class="['input', { 'p-invalid': error }]" />
+    <small id="film-help" class="p-error error">
+      {{ error }}
+    </small>
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.label,
+.input {
+  display: block;
+}
+
+.label {
+  padding-block-end: 0.5rem;
+}
+
+.input {
+  margin-block-end: 17px;
+}
+
+.field {
+  position: relative;
+  padding-block-end: 2rem;
+}
+
+.error {
+  position: absolute;
+  margin-block-start: -15px;
+}
+</style>

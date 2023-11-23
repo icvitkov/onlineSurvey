@@ -14,15 +14,47 @@ defineProps<{
 </script>
 
 <template>
-  <div class="card flex justify-content-center">
-    <div>{{ label }}</div>
-    <div class="flex flex-wrap gap-3">
-      <div v-for="rate in max - min + 1" :key="rate" class="flex align-items-center">
-        <RadioButton :inputId="'rate' + rate" name="rate" :value="rate" v-bind="bindingValue" />
-        <label :for="'rate' + rate">{{ rate }}</label>
+  <div class="field">
+    <div class="label">{{ label }}</div>
+    <div class="input">
+      <div class="rating">
+        <div v-for="rate in max - min + 1" :key="rate">
+          <RadioButton :inputId="'rate' + rate" name="rate" :value="rate" v-bind="bindingValue" />
+          <label class="rate" :for="'rate' + rate">{{ rate }}</label>
+        </div>
       </div>
     </div>
 
-    <small id="text-error" class="p-error">{{ error }}</small>
+    <small id="text-error" class="p-error error">{{ error }}</small>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.input {
+  display: block;
+  margin-block-end: 17px;
+}
+
+.label {
+  padding-block-end: 0.5rem;
+}
+
+.field {
+  position: relative;
+  padding-block-end: 2rem;
+}
+
+.rate {
+  padding-inline-start: 0.25rem;
+}
+
+.rating {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.error {
+  position: absolute;
+  margin-block-start: -15px;
+}
+</style>
