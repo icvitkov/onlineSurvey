@@ -48,14 +48,15 @@ const onSubmit = handleSubmit(() => {
 </script>
 
 <template>
-  <h1>{{ surveyData.title }}</h1>
-  <div v-html="surveyData.description"></div>
+  <h1 class="survey-title">{{ surveyData.title }}</h1>
+  <!-- dom purify -->
+  <div v-html="surveyData.description" class="survey-description"></div>
   <form @submit="onSubmit">
-    <div v-for="question in surveyData.questions" :key="question.questionId">
+    <div v-for="(question, index) in surveyData.questions" :key="question.questionId">
       <div v-if="question.questionType === 'text'">
         <FieldText
           :id="question.questionId"
-          :label="question.label"
+          :label="`${index + 1}. ${question.label}`"
           :binding-value="film"
           :error="errors.film"
         />
@@ -68,7 +69,7 @@ const onSubmit = handleSubmit(() => {
         class="field"
       >
         <FieldRating
-          :label="question.label"
+          :label="`${index + 1}. ${question.label}`"
           :binding-value="review"
           :max="question.attributes.max"
           :min="question.attributes.min"
@@ -84,3 +85,14 @@ const onSubmit = handleSubmit(() => {
     </div>
   </form>
 </template>
+
+<style lang="scss" scoped>
+.survey-description {
+  padding-block: 2rem;
+}
+
+.footer {
+  display: flex;
+  gap: 2rem;
+}
+</style>

@@ -25,5 +25,22 @@
       ]
     }
   },
-  "surveyAnswers": []
+  "answers": {
+    "data": {
+      "type": "surveyAnswers",
+      "attributes": {
+        "answers": [
+          {
+            "questionId": "film",
+            "answer": "King of the Hill"
+          },
+          {
+            "questionId": "review",
+            "answer": 5
+          }
+        ]
+      }
+    },
+    "surveyId": "2660dd24-e2db-42c1-8093-284b1df2664c"
+  }
 }
