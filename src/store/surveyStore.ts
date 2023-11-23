@@ -32,7 +32,6 @@ export const useSurveyStore = defineStore('survey', () => {
       await fetchSurveyAnswers()
     }
     const questions = surveyQuestions.value.data?.data.questions
-    console.log(surveyAnswers.value.data)
     const answers = surveyAnswers.value.data?.data?.attributes.answers
 
     return answers.map((answer: any) => {
