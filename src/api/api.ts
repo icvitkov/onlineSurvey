@@ -1,6 +1,5 @@
 import { createFetch } from '@vueuse/core'
 import router from '@/router'
-import { useSurveyStore } from '@/store/surveyStore'
 
 // Access the environment variable for the base API URL
 const baseUrl = import.meta.env.VITE_BACKEND_API_URL
@@ -10,7 +9,6 @@ const useMyFetch = createFetch({
   baseUrl,
   options: {
     onFetchError(ctx) {
-      const surveyStore = useSurveyStore()
       // error response interceptor
 
       const statusCode = ctx.response?.status
@@ -25,6 +23,13 @@ const useMyFetch = createFetch({
         if (statusCode === 401) {
           // trigger soft logout
           // redirect to login screen
+        }
+        if (statusCode === 422) {
+          ctx.error = {
+            ...ctx.error,
+            data: ctx.data
+          }
+          // change this
         }
         if (statusCode >= 500) {
           // redirect to 500 page

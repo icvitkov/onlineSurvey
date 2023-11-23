@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import SurveyForm from '@/components/SurveyForm.vue'
+import type { SurveyAnswer, BackendValidationError } from '@/types'
 import { ref } from 'vue'
-import { useSurveyStore } from '@/store/surveyStore'
-import type { SurveyAnswer } from '@/types'
 import { useRouter } from 'vue-router'
+import { useSurveyStore } from '@/store/surveyStore'
+import { useToast } from 'primevue/usetoast'
+import SurveyForm from '@/components/SurveyForm.vue'
+import Toast from 'primevue/toast'
+
+const toast = useToast()
 
 const router = useRouter()
 
@@ -12,8 +16,8 @@ const surveyData = ref()
 
 const fetchSurveyData = async () => {
   await surveyStore.fetchSurveyData()
-  if (surveyStore.surveyQuestions.error) {
-    console.log('error', surveyStore.surveyQuestions.error)
+  if (surveyStore.surveyQuestions.data.error) {
+    // usually handled in interceptors
     return
   }
   surveyData.value = surveyStore.surveyQuestions.data
@@ -40,8 +44,18 @@ const submitSurvey = async (form: { film: string; review: number }) => {
     }
   }
   await surveyStore.submitSurveyAnswers(surveyData.value.data.id, payload)
-  if (surveyStore.surveyAnswers.error) {
-    console.log(surveyStore.surveyAnswers.error)
+  if (surveyStore.surveyAnswers.error.data.errors) {
+    surveyStore.surveyAnswers.error.data.errors.forEach((error: BackendValidationError) => {
+      const parts = error.source.pointer.split('/')
+      const errorField = parts[parts.length - 1].toUpperCase()
+
+      toast.add({
+        severity: 'error',
+        summary: errorField,
+        detail: error.detail,
+        life: 3000
+      })
+    })
     return
   }
   router.push('/success')
@@ -50,6 +64,7 @@ const submitSurvey = async (form: { film: string; review: number }) => {
 
 <template>
   <section class="survey">
+    <Toast />
     <div v-if="surveyData && Object.keys(surveyData).length">
       <SurveyForm :survey-data="surveyData.data" @submit="submitSurvey" />
     </div>
