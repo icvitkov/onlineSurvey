@@ -11,17 +11,20 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <section class="success">
     <h1 class="title">Thank You!</h1>
     <h3 class="subtitle">These were your answers:</h3>
     <div v-for="(survey, index) in surveyResults" :key="index" class="answer">
       <p class="question">{{ index + 1 }}. {{ survey?.label }}</p>
       <p>{{ survey?.answer }}</p>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
+.success {
+  padding-inline: 2rem;
+}
 .title {
   padding-block-end: 2rem;
 }

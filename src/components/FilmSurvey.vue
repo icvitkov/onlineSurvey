@@ -44,8 +44,8 @@ const submitSurvey = async (form: { film: string; review: number }) => {
     }
   }
   await surveyStore.submitSurveyAnswers(surveyData.value.data.id, payload)
-  if (surveyStore.surveyAnswers.error.data.errors) {
-    surveyStore.surveyAnswers.error.data.errors.forEach((error: BackendValidationError) => {
+  if (surveyStore.surveyAnswers.error?.data.errors) {
+    surveyStore.surveyAnswers.error?.data.errors.forEach((error: BackendValidationError) => {
       const parts = error.source.pointer.split('/')
       const errorField = parts[parts.length - 1].toUpperCase()
 

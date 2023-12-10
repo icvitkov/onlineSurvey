@@ -62,14 +62,21 @@ app.post('/api/v1/survey/:id/answers', (req, res) => {
   if (errors.length > 0) {
     return res.status(422).json({ errors })
   }
+
   // Save answers to in-memory array
   answers = {
     surveyId: req.params.id,
-    answers
+    answers: userAnswers  // Corrected line: use userAnswers instead of the uninitialized 'answers'
   }
 
   // Respond with success
   res.status(201).json(answers)
+})
+
+
+app.get('/api/v1/answers', (req, res) => {
+  console.log('Received request for /api/v1/answers')
+  res.status(200).json(answers)
 })
 
 // Error handling middleware (based on Attachment 4)
