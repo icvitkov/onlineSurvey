@@ -3,7 +3,10 @@ require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
-  'extends': [
+  env: {
+    node: true
+  },
+  extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
     '@vue/eslint-config-typescript',
@@ -11,15 +14,20 @@ module.exports = {
   ],
   overrides: [
     {
-      files: [
-        'cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}'
-      ],
-      'extends': [
-        'plugin:cypress/recommended'
-      ]
+      files: ['cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}'],
+      extends: ['plugin:cypress/recommended']
+    },
+    {
+      files: ['src/pages/**/*.vue'],
+      rules: {
+        'vue/multi-word-component-names': 'off' // Disable the rule
+      }
     }
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  rules: {
+    semi: ['error', 'never']
   }
 }
