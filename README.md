@@ -39,26 +39,25 @@ npm run dev
 npm run build
 ```
 
+### Mock Server Error: Simulate a server error for testing
+```sh
+npm run mock-server-error
+```
+
+### Start Backend: Start the backend server
+```sh
+npm run start-backend
+```
+
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
 npm run test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
+### Build and Run with Docker Compose
 ```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
+docker-compose up --build
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
